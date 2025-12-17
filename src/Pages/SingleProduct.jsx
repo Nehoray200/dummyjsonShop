@@ -29,24 +29,23 @@ const SingleProduct = () => {
   if (loading) return <Typography sx={{ p: 4 }}>Loading...</Typography>
   if (!product) return <Typography sx={{ p: 4 }}>Product not found</Typography>
 
-  const discountText = product.discountPercentage > 5
-    ? `-${Math.round(product.discountPercentage)}% OFF`
+  const discount = product.discountPercentage > 5
+    ? Math.round(product.discountPercentage)
     : null;
+  const calcPrice = (product.price * (1 - (discount / 100.0))).toFixed(2)
 
   return (
     <Container maxWidth="xl" sx={{ py: 6 }}>
-      
-      {/* alignItems="flex-start" מבטיח שהתמונה תהיה מיושרת לקו העליון */}
       <Grid container spacing={6} alignItems="flex-start">
-        
+
         {/* --- צד שמאל: תמונה --- */}
         <Grid size={{ xs: 12, md: 6, lg: 6 }}>
           <Box sx={{ maxWidth: '900px', margin: '0 auto' }}>
             <ItemCard
               thumbnail={product.images[0]}
-              discountBadge={discountText}
+              discountBadge={`-${discount}% OFF`}
               onClick={() => { }}
-              imgHeight='500px' // עובד עכשיו בזכות העדכון ב-ItemCard
+              imgHeight='500px'
             />
           </Box>
         </Grid>
@@ -72,9 +71,24 @@ const SingleProduct = () => {
               </Stack>
 
               <Stack direction="row" alignItems="center" spacing={2}>
-                <Typography variant="h4" fontWeight="bold" color="primary.main">
-                  ${product.price}
-                </Typography>
+                {discount ? (
+                  <> 
+                    <Typography variant="h4" fontWeight="bold" color="secondary.main">
+                      ${calcPrice}
+                    </Typography>
+                    <Typography
+                      variant="h5"
+                      color="text.secondary"
+                      sx={{ textDecoration: 'line-through' }} 
+                    >
+                      ${product.price}
+                    </Typography>
+                  </>
+                ) : (
+                  <Typography variant="h4" fontWeight="bold" color="primary.main">
+                    ${product.price}
+                  </Typography>
+                )}
               </Stack>
 
               <Typography variant="body1" color="text.secondary" sx={{ mt: 2, lineHeight: 1.8 }}>
@@ -83,29 +97,6 @@ const SingleProduct = () => {
             </Box>
 
             <Divider />
-
-            <Box>
-              <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 1 }}>
-                Select Colour
-              </Typography>
-              <Stack direction="row" spacing={1}>
-                {[theme.palette.primary.main, theme.palette.secondary.main, theme.palette.info.main].map((color, i) => (
-                  <Box
-                    key={i}
-                    sx={{
-                      width: 32,
-                      height: 32,
-                      bgcolor: color,
-                      borderRadius: '50%',
-                      cursor: 'pointer',
-                      border: `2px solid ${theme.palette.background.paper}`,
-                      boxShadow: `0 0 0 2px ${i === 0 ? theme.palette.text.primary : 'transparent'}`
-                    }}
-                  />
-                ))}
-              </Stack>
-            </Box>
-
             <Stack spacing={2}>
               <Button
                 variant="contained"
