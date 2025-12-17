@@ -33,7 +33,7 @@ const ItemCard = ({ title, thumbnail, discountBadge, onClick, imgHeight = "220" 
                             size="small"
                             sx={{
                                 bgcolor: 'secondary.main',
-                                color: 'white', // תיקון קטן: לבן לקריאות טובה יותר
+                                color: 'secondary.contrastText', 
                                 fontWeight: 'bold',
                                 borderRadius: 2,
                                 fontSize: '0.7rem',

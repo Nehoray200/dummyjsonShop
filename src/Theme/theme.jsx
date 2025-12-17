@@ -35,8 +35,8 @@ const getDesignTokens = (mode) => ({
                 contrastText: '#000000' 
             },
             secondary: {
-                main: '#fab6a7', 
-                contrastText: '#44150b'
+                main: '#eb6548', 
+                contrastText: '#fef6ee'
             },
             info: {
                 // הבהרתי טיפה את הזהב שיהיה בולט יותר על הרקע הכהה
