@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Container, Grid, Box, Typography, Button, Stack, Divider, Chip, Rating, useTheme } from '@mui/material';
+import { Container, Grid, Box, Typography, Button, Stack, Divider, Rating, useTheme } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { ServerContext } from '../Context/ServerContext'
 import { useParams } from 'react-router-dom'
@@ -11,6 +11,7 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(true);
   const { server } = useContext(ServerContext);
   const theme = useTheme();
+
   useEffect(() => {
     const result = async () => {
       try {
@@ -34,16 +35,18 @@ const SingleProduct = () => {
 
   return (
     <Container maxWidth="xl" sx={{ py: 6 }}>
-      <Grid container spacing={6} alignItems="center">
+      
+      {/* alignItems="flex-start" מבטיח שהתמונה תהיה מיושרת לקו העליון */}
+      <Grid container spacing={6} alignItems="flex-start">
+        
         {/* --- צד שמאל: תמונה --- */}
         <Grid size={{ xs: 12, md: 6, lg: 6 }}>
-
           <Box sx={{ maxWidth: '900px', margin: '0 auto' }}>
             <ItemCard
-              title={""}
               thumbnail={product.images[0]}
               discountBadge={discountText}
               onClick={() => { }}
+              imgHeight='500px' // עובד עכשיו בזכות העדכון ב-ItemCard
             />
           </Box>
         </Grid>
