@@ -12,8 +12,8 @@ const ItemGrid = ({ loading, arrGrid, onItemClick }) => {
         }}>
             {loading
                 ?
-                Array.from(new Array(8)).map((_, index) => (
-                    <Skeleton key={index} variant="rectangular" height={200} sx={{ borderRadius: 3 }} />
+                Array.from(new Array(12)).map((_, index) => (
+                    <Skeleton key={index} variant="rectangular" height={280} sx={{ borderRadius: 3 }} />
                 ))
                 :
                 arrGrid.map((item) => (

@@ -40,7 +40,9 @@ const AllCategories = () => {
                 console.error("Error loading categories", err)
                 setLoading(false)
             }
+        
         }
+        window.scrollTo({top:0})
         serverData()
     }, [])
 

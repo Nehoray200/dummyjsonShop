@@ -37,11 +37,12 @@ const SingleProduct = () => {
 
         <Grid size={{ xs: 12, md: 6, lg: 6 }}>
           <ProductGallery 
-            image={product?.images ? product.images[0] : null} 
+            images={product?.images ? product.images : null} 
             discount={discount} 
             loading={loading}
           />
         </Grid> 
+
 
         <Grid size={{ xs: 12, md: 5 }}>
           <ProductInfo 
