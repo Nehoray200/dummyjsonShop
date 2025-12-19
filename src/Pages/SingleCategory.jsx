@@ -28,7 +28,8 @@ const SingleCategory = () => {
                         id: product.id,
                         title: product.title,
                         thumbnail: product.thumbnail,
-                        discountBadge: product.discountPercentage >= 5 ? `Sale -${Math.round(product.discountPercentage)}%` : null
+                        discountBadge: product.discountPercentage >= 5 ? `Sale -${Math.round(product.discountPercentage)}%` : null,
+                        price : product.price 
                     }
                 });
 

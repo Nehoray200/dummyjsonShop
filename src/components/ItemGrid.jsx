@@ -17,7 +17,8 @@ const ItemGrid = ({ loading, arrGrid, onItemClick }) => {
                 ))
                 :
                 arrGrid.map((item) => (
-                    <ItemCard title={item.title} thumbnail={item.thumbnail} discountBadge={item.discountBadge} onClick={() => onItemClick(item.id)} key={item.id} />
+                    <ItemCard title={item.title} thumbnail={item.thumbnail} discountBadge={item.discountBadge} onClick={() => onItemClick(item.id)} key={item.id} price={item.price} />
+                
                 ))
             }
         </Box>

@@ -1,7 +1,7 @@
 import { Box, Typography, Button, Stack, Divider, Rating, Skeleton } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
-const ProductInfo = ({ product, discount, loading }) => {
+import PriceText from './PriceText'
+const ProductInfo = ({ product, loading }) => {
 
   if (loading) {
     return (
@@ -20,7 +20,7 @@ const ProductInfo = ({ product, discount, loading }) => {
     );
   }
 
-  const finalPrice = (product.price * (1 - (discount / 100.0))).toFixed(2);
+
 
   return (
     <Stack spacing={4}>
@@ -35,32 +35,9 @@ const ProductInfo = ({ product, discount, loading }) => {
 
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
           <Rating value={product.rating} precision={0.5} readOnly />
-          <Typography variant="body2" color="text.secondary">
-            ({product.rating} / 5)
-          </Typography>
         </Stack>
 
-        <Stack direction="row" alignItems="center" spacing={2}>
-          {discount ? (
-            <>
-              <Typography variant="h4" fontWeight="bold" color="secondary.main">
-                ${finalPrice}
-              </Typography>
-              <Typography
-                variant="h5"
-                color="text.secondary"
-                sx={{ textDecoration: 'line-through' }}
-              >
-                ${product.price}
-              </Typography>
-            </>
-          ) : (
-            <Typography variant="h4" fontWeight="bold" color="primary.main">
-              ${product.price}
-            </Typography>
-          )}
-        </Stack>
-
+       <PriceText price={product.price} discount={product.discountPercentage} size={4}/>
         <Typography variant="body1" color="text.secondary" sx={{ mt: 2, lineHeight: 1.8 }}>
           {product.description}
         </Typography>
