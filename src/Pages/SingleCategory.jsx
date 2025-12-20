@@ -42,7 +42,7 @@ const SingleCategory = () => {
             }
         }
         serverData()
-    }, [])
+    }, [id, server])
 
 
     return (

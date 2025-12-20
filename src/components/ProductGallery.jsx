@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Skeleton, Grid, Stack, useTheme } from '@mui/material';
+import { Box, Skeleton, Grid, Stack } from '@mui/material';
 import ItemCard from '../components/ItemCard';
+import GalleryThumbnail from './GalleryThumbnail';
 
 const ProductGallery = ({ images, discount, loading }) => {
-  const theme = useTheme(); // Hook 1
 
-  // --- השינוי כאן: הזזנו את ה-Hooks למעלה, לפני הבדיקה של ה-loading ---
-
-  // Hook 2
   const [selected, setSelected] = useState(images?.[0]);
 
-  // Hook 3
+
   useEffect(() => {
     if (images && images.length > 0) {
       setSelected(images[0]);
     }
   }, [images]);
 
-  // --- ורק עכשיו בודקים את ה-loading ---
+
 
   if (loading) {
     return (
@@ -30,7 +27,6 @@ const ProductGallery = ({ images, discount, loading }) => {
     )
   }
 
-  // --- המשך הקוד כרגיל ---
 
   return (
     <Box sx={{ maxWidth: '900px', margin: '0 auto' }}>
@@ -41,24 +37,12 @@ const ProductGallery = ({ images, discount, loading }) => {
             justifyContent="flex-start"
             alignItems="center" >
             {images && images.map((img, index) =>
-              <Box
-                key={index}
-                component="img"
-                src={img}
+              <GalleryThumbnail
+                image={img}
+                alt={`Product thumbnail ${index + 1}`}
                 onClick={() => setSelected(img)}
-                sx={{
-                  width: '100%',
-                  height: '80px',
-                  objectFit: 'cover',
-                  cursor: 'pointer',
-                  borderRadius: 2,
-                  border: selected === img ? `2px solid ${theme.palette.primary.main}`
-                    : '1px solid transparent',
-                  opacity: selected === img ? 1 : 0.7,
-                  transition: '0.2s',
-                  '&:hover': { opacity: 1 }
-                }}
-              />
+                isSelected={img === selected}
+                key={index} />
             )}
           </Stack>
         </Grid>
