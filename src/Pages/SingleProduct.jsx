@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import ProductGallery from '../components/ProductGallery'
 import ProductInfo from '../components/ProductInfo'
 import ProductTabs from '../components/ProductTabs'
+import ProductReviews from '../components/ProductReviews'
+
 
 const SingleProduct = () => {
   const { id } = useParams()
@@ -52,9 +54,12 @@ const SingleProduct = () => {
             loading={loading}
           />
         </Grid>
-        <Box sx={{ mt: 8 }}>
+        <Grid size={{ xs: 12 }} sx={{ mt: 4 }}>
           <ProductTabs product={product} />
-        </Box>
+        </Grid>
+        <Grid size={{ xs: 12 }} sx={{ mt: 4 }}>
+          <ProductReviews reviews={product?.reviews} />
+        </Grid>
       </Grid>
     </Container>
   );
