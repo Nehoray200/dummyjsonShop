@@ -21,13 +21,11 @@ const ProductReviews = ({ reviews }) => {
 
             <List>
                 {reviews.map((review, index) => (
-                    // React.Fragment מאפשר לנו להחזיר שני אלמנטים (פריט + קו מפריד) בלי לעטוף בדיב מיותר
                     <Box key={index}>
 
-                        <ListItem alignItems="flex-start"> {/* alignItems עוזר כשיש טקסט ארוך */}
+                        <ListItem alignItems="flex-start">
 
                             <ListItemAvatar>
-                                {/* 1. הוספנו צבע וגם את האות הראשונה */}
                                 <Avatar sx={{ bgcolor: 'primary.main' }}>
                                     {review.reviewerName ? review.reviewerName[0] : 'U'}
                                 </Avatar>
@@ -36,12 +34,11 @@ const ProductReviews = ({ reviews }) => {
                             <ListItemText
                                 primary={
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        {/* שם המבקר */}
+                                   
                                         <Typography variant="subtitle1" fontWeight="bold">
                                             {review.reviewerName}
                                         </Typography>
 
-                                        {/* 2. הוספנו תאריך בצד ימין */}
                                         <Typography variant="caption" color="text.secondary">
                                             {new Date(review.date).toLocaleDateString()}
                                         </Typography>
