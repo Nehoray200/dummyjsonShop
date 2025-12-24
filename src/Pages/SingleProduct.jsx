@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Container, Grid, Typography, Box } from '@mui/material';
 import { ServerContext } from '../Context/ServerContext'
 import { useParams } from 'react-router-dom'
-import ProductGallery from '../components/ProductGallery'
-import ProductInfo from '../components/ProductInfo'
-import ProductTabs from '../components/ProductTabs'
-import ProductReviews from '../components/ProductReviews'
+import ProductGallery from '../components/Product/ProductGallery'
+import ProductInfo from '../components/Product/ProductInfo'
+import ProductTabs from '../components/Product/ProductTabs'
+import ProductReviews from '../components/Product/ProductReviews'
 
 
 const SingleProduct = () => {

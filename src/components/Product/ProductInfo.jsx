@@ -1,6 +1,6 @@
 import { Box, Typography, Button, Stack, Divider, Rating, Skeleton } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PriceText from './PriceText'
+import PriceText from '../PriceText'
 const ProductInfo = ({ product, loading }) => {
 
   if (loading) {
