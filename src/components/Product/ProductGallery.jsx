@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Skeleton, Grid, Stack } from '@mui/material';
-import ItemCard from '../components/ItemCard';
+import ItemCard from '../ItemCard';
 import GalleryThumbnail from './GalleryThumbnail';
 
 const ProductGallery = ({ images, discount, loading }) => {
