@@ -3,31 +3,18 @@ const mailCheck = /^[a-zA-Z0-9._%+-]+@(gmail|outlook|walla)\.(com|co\.il)$/
 const passwordCheck = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/
 const idCheck = (id) => {
     if (!id) return false;
-
-    // קודם כל מוודאים שזה מספר ושזה 9 ספרות בדיוק
-    // (אם תעודת הזהות קצרה מ-9 ספרות, המשתמש צריך להוסיף אפסים בהתחלה)
     if (!/^\d{9}$/.test(id)) return false;
 
     let sum = 0;
 
     for (let i = 0; i < 9; i++) {
-        // המרת התו למספר
         let num = Number(id[i]);
-
-        // הכפלה: מקום זוגי (אינדקס 0, 2...) כפול 1, מקום אי זוגי (אינדקס 1, 3...) כפול 2
-        // הערה: i%2 יתן 0 או 1. נוסיף 1 ונקבל כופל של 1 או 2.
         let step = num * ((i % 2) + 1);
-
-        // אם התוצאה גדולה מ-9, מחברים את הספרות שלה (למשל 12 הופך ל-3)
-        // טריק מתמטי: לחסר 9 נותן את אותה תוצאה (12-9=3)
         if (step > 9) {
             step -= 9;
         }
-
         sum += step;
     }
-
-    // המספר תקין אם הסכום הכולל מתחלק ב-10 ללא שארית
     return sum % 10 === 0;
 };
 const dataCheck = (value) => {
@@ -100,7 +87,7 @@ export const registerFields = [
         required: true,
         valiData: idCheck,
         errorMessage: 'Please enter a valid 9-digit ID number'
-    },{
+    }, {
         id: 'phone',
         label: 'Phone Number',
         name: 'phone',

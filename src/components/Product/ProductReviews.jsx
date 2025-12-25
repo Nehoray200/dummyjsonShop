@@ -32,9 +32,10 @@ const ProductReviews = ({ reviews }) => {
                             </ListItemAvatar>
 
                             <ListItemText
+                                primaryTypographyProps={{ component: 'div' }}
+                                secondaryTypographyProps={{ component: 'div' }}
                                 primary={
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                   
                                         <Typography variant="subtitle1" fontWeight="bold">
                                             {review.reviewerName}
                                         </Typography>
