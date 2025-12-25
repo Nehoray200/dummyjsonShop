@@ -1,41 +1,51 @@
 import React, { useState } from 'react';
-import { Grid, Box, Typography, Paper, Button,TextField  } from '@mui/material'; // הסרתי את TextField שמיותר פה
+import { Grid, Box, Typography, Paper, Button, TextField } from '@mui/material';
 import PasswordField from './PasswordField';
 import DateField from './DateField';
+import GlobalAlert from '../GlobalAlert';
 
 const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
-    // ... (הלוגיקה של ה-State נשארת אותו דבר בדיוק) ...
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
-
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     const handleChange = (event, fieldConfig) => {
-        // ... (העתק את ה-handleChange המתוקן ממקודם) ...
         const { name, value } = event.target;
         setValues(prev => ({ ...prev, [name]: value }));
 
         let newErrorMessage = null;
-        if (fieldConfig.regex && !fieldConfig.regex.test(value)) {
-            newErrorMessage = fieldConfig.errorMessage;
-        }
-        if (!newErrorMessage && fieldConfig.validate) {
-            const isValid = fieldConfig.validate(value);
-            if (!isValid) newErrorMessage = fieldConfig.errorMessage;
+        const validationRule = fieldConfig.valiData;
+
+        if (validationRule) {
+            let isValid = true;
+            if (typeof validationRule === 'function') {
+                isValid = validationRule(value);
+            } else if (validationRule instanceof RegExp) {
+                isValid = validationRule.test(value);
+            }
+
+            if (!isValid) {
+                newErrorMessage = fieldConfig.errorMessage;
+            }
         }
         setErrors(prev => ({ ...prev, [name]: newErrorMessage }));
     };
 
     const handleSubmit = (event) => {
-        // ... (העתק את ה-handleSubmit המתוקן ממקודם) ...
         event.preventDefault();
+
         const hasErrors = Object.values(errors).some(error => error !== null);
         const missingRequired = fields.some(field => field.required && !values[field.name]);
 
         if (hasErrors || missingRequired) {
+            // פתיחת ההודעה אם יש שגיאות
+            setOpenSnackbar(true);
             return;
         }
-        if (onSubmit) onSubmit(values);
-    };
 
+        if (onSubmit) {
+            onSubmit(values);
+        }
+    };
     return (
         <Grid
             size={{ xs: 12, sm: 8, md: 5 }}
@@ -43,22 +53,25 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
             elevation={6}
             square
             sx={{
-                // שימוש בצבע הרקע מה-Theme (לבן ביום, כחול כהה בלילה)
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
                 backgroundColor: 'background.paper',
-                color: 'text.primary'
+                color: 'text.primary',
+                overflow: 'hidden'
             }}
         >
-            <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '450px' }}>
 
-                {/* שימוש בצבע הטקסט הראשי מה-Theme */}
-                <Typography component="h1" variant="h5" color="primary.main" sx={{ fontWeight: 'bold' }}>
+                <Typography component="h1" variant="h5" color="primary.main" sx={{ fontWeight: 'bold', mb: 3 }}>
                     {title}
                 </Typography>
 
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ width: '100%' }}>
                     <Grid container spacing={2}>
                         {fields.map((field, index) => {
-                            // ... (הלוגיקה של הרינדור נשארת זהה) ...
                             const currentValue = values[field.name] || '';
                             const currentError = errors[field.name];
                             const isError = Boolean(currentError);
@@ -82,8 +95,6 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                                             helperText={currentError}
                                         />
                                     ) : (
-                                        // TextField רגיל - אוטומטית מקבל את ה-Theme
-                                        // אבל נוסיף לו props כדי שיהיה מדויק
                                         <TextField
                                             required={field.required}
                                             fullWidth
@@ -96,12 +107,8 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                                             onChange={(e) => handleChange(e, field)}
                                             error={isError}
                                             helperText={currentError}
-
-                                            // כאן הדפדפן ייקח את ה-Primary Color כשהשדה בפוקוס
                                             color="primary"
-
                                             sx={{
-                                                // עיצוב הטקסט הקטן למטה (HelperText)
                                                 '& .MuiFormHelperText-root': {
                                                     color: isError ? 'error.main' : 'text.secondary'
                                                 }
@@ -117,15 +124,18 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2, py: 1.5, fontSize: '1.1rem' }}
-                        disabled={Object.values(errors).some(e => e !== null)}
+                        sx={{ mt: 4, mb: 2, py: 1.5, fontSize: '1.1rem' }}
                         color="primary"
                     >
                         {buttonText}
                     </Button>
                 </Box>
             </Box>
-        </Grid>
+            <GlobalAlert
+                message="Please fill in all mandatory fields and correct any errors"
+                openSnackbar={openSnackbar}
+                setOpenSnackbar={setOpenSnackbar}
+            />        </Grid>
     );
 };
 
