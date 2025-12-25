@@ -53,7 +53,6 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
             elevation={6}
             square
             sx={{
-                height: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -70,7 +69,7 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                 </Typography>
 
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ width: '100%' }}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={1.5}>
                         {fields.map((field, index) => {
                             const currentValue = values[field.name] || '';
                             const currentError = errors[field.name];

@@ -7,11 +7,11 @@ import ImageSide from '../components/ImageSide'
 import AuthForm  from '../components/Form/AuthForm'
 import myBackgroundImageOne from '../assets/Register_Light.svg';
 import myBackgroundImageTwo from '../assets/Register_Dark.svg';
-import {registerFields} from '../utils/formFields'
+import {registerFields} from '../components/Form/formFields'
 
 const Register = () => {
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '100%' }}>
 
       <ImageSide lightImage={myBackgroundImageOne} darkImage={myBackgroundImageTwo}/>
 
