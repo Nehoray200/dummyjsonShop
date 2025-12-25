@@ -7,13 +7,13 @@ import ImageSide from '../components/ImageSide'
 import AuthForm from '../components/Form/AuthForm'
 import Login_Light from '../assets/Login_Light.svg';
 import Login_Dark from '../assets/Login_Dark.svg';
-import { loginFields } from '../utils/formFields'
+import { loginFields } from '../components/Form/formFields'
 
 const Login = () => {
 
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '100%' }}>
       <ImageSide lightImage={Login_Light} darkImage={Login_Dark} />
 
       <AuthForm

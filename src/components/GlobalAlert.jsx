@@ -1,8 +1,8 @@
 import React from 'react';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert,AlertTitle } from '@mui/material';
 
 const GlobalAlert = ({ message, openSnackbar, setOpenSnackbar }) => {
-    
+
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -18,11 +18,13 @@ const GlobalAlert = ({ message, openSnackbar, setOpenSnackbar }) => {
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
             <Alert
+
                 onClose={handleCloseSnackbar}
                 severity="error"
                 variant="filled"
                 sx={{ width: '100%' }}
             >
+                <AlertTitle>Error</AlertTitle>
                 {message}
             </Alert>
         </Snackbar>
