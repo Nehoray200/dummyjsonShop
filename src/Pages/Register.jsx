@@ -5,8 +5,8 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import ImageSide from '../components/ImageSide'
 import AuthForm  from '../components/Form/AuthForm'
-import myBackgroundImageOne from '../assets/light.svg';
-import myBackgroundImageTwo from '../assets/dark.svg';
+import myBackgroundImageOne from '../assets/Register_Light.svg';
+import myBackgroundImageTwo from '../assets/Register_Dark.svg';
 import {registerFields} from '../utils/formFields'
 
 const Register = () => {
