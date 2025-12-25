@@ -1,51 +1,12 @@
-import React, { useState } from 'react';
-import { Grid, Box, Typography, Paper, Button, TextField } from '@mui/material';
-import PasswordField from './PasswordField';
-import DateField from './DateField';
+import React from 'react';
+import { Grid, Box, Typography, Paper, Button } from '@mui/material';
 import GlobalAlert from '../GlobalAlert';
+import useForm from './useForm'; // וודא שהנתיב נכון
+import FormField from './FormField'; // הייבוא החדש
 
 const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
-    const [values, setValues] = useState({});
-    const [errors, setErrors] = useState({});
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const handleChange = (event, fieldConfig) => {
-        const { name, value } = event.target;
-        setValues(prev => ({ ...prev, [name]: value }));
+    const { values, errors, openSnackbar, setOpenSnackbar, handleChange, handleSubmit } = useForm(fields, onSubmit);
 
-        let newErrorMessage = null;
-        const validationRule = fieldConfig.valiData;
-
-        if (validationRule) {
-            let isValid = true;
-            if (typeof validationRule === 'function') {
-                isValid = validationRule(value);
-            } else if (validationRule instanceof RegExp) {
-                isValid = validationRule.test(value);
-            }
-
-            if (!isValid) {
-                newErrorMessage = fieldConfig.errorMessage;
-            }
-        }
-        setErrors(prev => ({ ...prev, [name]: newErrorMessage }));
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const hasErrors = Object.values(errors).some(error => error !== null);
-        const missingRequired = fields.some(field => field.required && !values[field.name]);
-
-        if (hasErrors || missingRequired) {
-            // פתיחת ההודעה אם יש שגיאות
-            setOpenSnackbar(true);
-            return;
-        }
-
-        if (onSubmit) {
-            onSubmit(values);
-        }
-    };
     return (
         <Grid
             size={{ xs: 12, sm: 8, md: 5 }}
@@ -53,6 +14,7 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
             elevation={6}
             square
             sx={{
+                height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -63,60 +25,21 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
             }}
         >
             <Box sx={{ mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '450px' }}>
-
                 <Typography component="h1" variant="h5" color="primary.main" sx={{ fontWeight: 'bold', mb: 3 }}>
                     {title}
                 </Typography>
 
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ width: '100%' }}>
                     <Grid container spacing={1.5}>
-                        {fields.map((field, index) => {
-                            const currentValue = values[field.name] || '';
-                            const currentError = errors[field.name];
-                            const isError = Boolean(currentError);
-
-                            return (
-                                <Grid key={index} size={{ xs: 12, sm: field.width || 12 }}>
-                                    {field.type === 'password' ? (
-                                        <PasswordField
-                                            field={field}
-                                            value={currentValue}
-                                            onChange={(e) => handleChange(e, field)}
-                                            error={isError}
-                                            helperText={currentError}
-                                        />
-                                    ) : field.type === 'date' ? (
-                                        <DateField
-                                            field={field}
-                                            value={currentValue}
-                                            onChange={(e) => handleChange(e, field)}
-                                            error={isError}
-                                            helperText={currentError}
-                                        />
-                                    ) : (
-                                        <TextField
-                                            required={field.required}
-                                            fullWidth
-                                            id={field.id}
-                                            label={field.label}
-                                            name={field.name}
-                                            type={field.type || 'text'}
-                                            autoComplete={field.autoComplete}
-                                            value={currentValue}
-                                            onChange={(e) => handleChange(e, field)}
-                                            error={isError}
-                                            helperText={currentError}
-                                            color="primary"
-                                            sx={{
-                                                '& .MuiFormHelperText-root': {
-                                                    color: isError ? 'error.main' : 'text.secondary'
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                </Grid>
-                            );
-                        })}
+                        {fields.map((field, index) => (
+                            <FormField
+                                key={index}
+                                field={field}
+                                value={values[field.name] || ''}
+                                error={errors[field.name]}
+                                onChange={(e) => handleChange(e, field)}
+                            />
+                        ))}
                     </Grid>
 
                     <Button
@@ -134,7 +57,8 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                 message="Please fill in all mandatory fields and correct any errors"
                 openSnackbar={openSnackbar}
                 setOpenSnackbar={setOpenSnackbar}
-            />        </Grid>
+            />
+        </Grid>
     );
 };
 
