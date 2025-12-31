@@ -1,11 +1,12 @@
 import React from 'react';
 import { Grid, Box, Typography, Paper, Button } from '@mui/material';
 import GlobalAlert from '../GlobalAlert';
-import useForm from './useForm'; // וודא שהנתיב נכון
-import FormField from './FormField'; // הייבוא החדש
+import useForm from './useForm'; 
+import FormField from './FormField'; 
 
 const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
-    const { values, errors, openSnackbar, setOpenSnackbar, handleChange, handleSubmit } = useForm(fields, onSubmit);
+    // שליפת formError מתוך ה-Hook
+    const { values, errors, formError, handleChange, handleSubmit } = useForm(fields, onSubmit);
 
     return (
         <Grid
@@ -53,11 +54,9 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                     </Button>
                 </Box>
             </Box>
-            <GlobalAlert
-                message="Please fill in all mandatory fields and correct any errors"
-                openSnackbar={openSnackbar}
-                setOpenSnackbar={setOpenSnackbar}
-            />
+
+            <GlobalAlert message={formError} />
+            
         </Grid>
     );
 };

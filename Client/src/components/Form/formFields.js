@@ -46,9 +46,9 @@ export const registerFields = [
         required: true
     },
     {
-        id: 'lastname',
+        id: 'lastName',
         label: 'Last Name',
-        name: 'lastname',
+        name: 'lastName',
         width: 6,
         required: true
     },
@@ -70,9 +70,9 @@ export const registerFields = [
         errorMessage: "Minimum 8 characters, At least one uppercase letter(A- Z), At least one special character(e.g., !, @, #, $)"
     },
     {
-        id: 'birthDate',
+        id: 'birthday',
         label: 'Birth Date',
-        name: 'birthDate',
+        name: 'birthday',
         type: 'date',
         required: true,
         width: 6,
@@ -80,9 +80,9 @@ export const registerFields = [
         valiData: dataCheck
     },
     {
-        id: 'idcard',
+        id: 'id',
         label: 'Id Card',
-        name: 'idcard',
+        name: 'id',
         width: 6,
         required: true,
         valiData: idCheck,

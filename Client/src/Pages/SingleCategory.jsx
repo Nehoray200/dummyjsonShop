@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom"
 
 const SingleCategory = () => {
     const { id } = useParams()
-    const { server } = useContext(ServerContext);
+    const { dummyServer } = useContext(ServerContext);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const SingleCategory = () => {
         const serverData = async () => {
             try {
 
-                const response = await server.get(`/products/category/${id}`);
+                const response = await dummyServer.get(`/products/category/${id}`);
                 const rawProducts = response.data.products;
                 const formattedProducts = rawProducts.map((product) => {
                     return {
@@ -42,7 +42,7 @@ const SingleCategory = () => {
             }
         }
         serverData()
-    }, [id, server])
+    }, [id, dummyServer])
 
 
     return (

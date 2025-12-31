@@ -12,12 +12,12 @@ const SingleProduct = () => {
   const { id } = useParams()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true);
-  const { server } = useContext(ServerContext);
+  const { dummyServer } = useContext(ServerContext);
 
   useEffect(() => {
     const result = async () => {
       try {
-        const response = await server.get(`/products/${id}`)
+        const response = await dummyServer.get(`/products/${id}`)
         setProduct(response.data)
       } catch (error) {
         console.log("error loading Product: " + error)
@@ -26,7 +26,7 @@ const SingleProduct = () => {
       }
     }
     result()
-  }, [id, server])
+  }, [id, dummyServer])
 
   if (!loading && !product) return <Typography sx={{ p: 4 }}>Product not found</Typography>
 

@@ -1,13 +1,18 @@
-import React,{useState} from 'react'
+import { useState } from 'react';
 
-const useForm = (fields,onSubmit) => {
+const useForm = (fields, onSubmit) => {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
-    const [openSnackbar, setOpenSnackbar] = useState(false);
+    
+    // שינוי 1: במקום בוליאני, נשתמש במחרוזת שתחזיק את הודעת השגיאה
+    const [formError, setFormError] = useState("");
 
     const handleChange = (event, fieldConfig) => {
         const { name, value } = event.target;
         setValues(prev => ({ ...prev, [name]: value }));
+
+        // שינוי 2: אם המשתמש מתחיל לתקן, נעלים את ההודעה הכללית
+        if (formError) setFormError("");
 
         let newErrorMessage = null;
         const validationRule = fieldConfig.valiData;
@@ -34,7 +39,8 @@ const useForm = (fields,onSubmit) => {
         const missingRequired = fields.some(field => field.required && !values[field.name]);
 
         if (hasErrors || missingRequired) {
-            setOpenSnackbar(true);
+            // שינוי 3: קביעת הודעת הטקסט במקום true/false
+            setFormError("Please fill in all mandatory fields and correct any errors");
             return;
         }
 
@@ -42,15 +48,14 @@ const useForm = (fields,onSubmit) => {
             onSubmit(values);
         }
     };
-   return {
+
+    return {
         values,
         errors,
-        openSnackbar,
-        setOpenSnackbar,
+        formError, // מחזירים את הטקסט החוצה
         handleChange,
         handleSubmit
     };
-  
-}
+};
 
-export default useForm
+export default useForm;

@@ -1,17 +1,27 @@
-import React,{createContext, useState, useEffect, useContext} from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
-import ServerContext from './ServerContext'
+import { ServerContext } from './ServerContext'
+import { useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext()
+export const AuthContext = createContext();
 
-const AuthProvider = () => {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const {server} = useContext(ServerContext)
-    
+export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const login = (userData) => { setUser(userData) }
+  const logout = () => {
+    setUser(null)
+    navigate('/')
+  }
+
+  useEffect(() => {
+    if (!user) return
+    console.log("i am logn now: " + user.password)
+  }, [user])
+
   return (
-    <div>AuthProvider</div>
-  )
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
-
-export default AuthProvider

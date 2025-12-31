@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const AllCategories = () => {
-    const { server } = useContext(ServerContext);
+    const { dummyServer } = useContext(ServerContext);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -16,9 +16,9 @@ const AllCategories = () => {
     useEffect(() => {
         const serverData = async () => {
             try {
-                const categoryNames = (await server.get('/products/categories')).data
+                const categoryNames = (await dummyServer.get('/products/categories')).data
                 const promises = categoryNames.map(async (cat) => {
-                    const response = await server.get(`/products/category/${cat.slug}?limit=10`);
+                    const response = await dummyServer.get(`/products/category/${cat.slug}?limit=10`);
                     const productData = response.data.products;
                     productData.sort((a, b) => b.discountPercentage - a.discountPercentage);
                     const bestDealProduct = productData[0];

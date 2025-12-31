@@ -4,20 +4,21 @@ import { ColorModeContext } from '../Context/ColorModeContext';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { AuthContext } from '../Context/AuthProvider'
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const { toggleColorMode } = useContext(ColorModeContext)
+    const { user, logout } = useContext(AuthContext)
+
     const theme = useTheme();
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const handleClose = () => {
         setAnchorEl(null);
     };
-
     return (
         <Box sx={{ zIndex: 1100 }}>
             <AppBar
@@ -30,8 +31,8 @@ const Navbar = () => {
             >
                 <Toolbar variant="dense" sx={{ justifyContent: "flex-start", gap: "10px" }}>                    <Button component={Link} to="/" variant="text" color="inherit">Home</Button>
                     <Button component={Link} to="/Categories" variant="text" color="inherit">Categories</Button>
-                    <Button component={Link} to="/Login" variant="text" color="inherit">Login</Button>
-                    <Button component={Link} to="/Register" variant="text" color="inherit">Register</Button>
+                    {!user ? <Button component={Link} to="/Login" variant="text" color="inherit">Login</Button> : <></>}
+                    {!user ? <Button component={Link} to="/Register" variant="text" color="inherit">Register</Button>: <></>}
                     <Box sx={{ flexGrow: 1 }} />
                     <IconButton onClick={toggleColorMode} color="inherit">
                         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -65,7 +66,7 @@ const Navbar = () => {
                         >
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={handleClose}>My account</MenuItem>
-                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            <MenuItem onClick={logout}>Logout</MenuItem>
                         </Menu>
                     </div>
                 </Toolbar>

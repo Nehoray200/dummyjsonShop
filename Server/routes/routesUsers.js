@@ -7,10 +7,10 @@ const validateBody = (req, res, next) => {
         res.status(400).send("need body in req")
         return
     }
-    const { id, name, password, birthday, email, phone, city } = req.body
+    const { id, firstName,lastName, password, birthday, email, phone } = req.body
     console.log(req.body)
-    if (!id || !name || !password || !birthday || !email || !phone || !city)
-        res.status(401).send("missing data in req.body {id,name,password,birthday,email,phone,city}")
+    if (!id || !firstName || !lastName || !password || !birthday || !email || !phone )
+        res.status(401).send("missing data in req.body {id,First Name,Last name ,password,birthday,email,phone}")
     else
         next()
 }
@@ -35,10 +35,10 @@ const validateQuery = (req, res, next) => {
         res.status(400).send("need query in req")
         return
     }
-    const { id, pass } = req.query
+    const { email, password } = req.query
     console.log(req.query)
-    if (!id || !pass)
-        res.status(400).send("missing data {id,password} in req.query")
+    if (!email || !password)
+        res.status(400).send("missing data {email,password} in req.query")
     else
         next()
 }
@@ -57,15 +57,15 @@ routesUsers.post('/register', validateBody, validateDucplicate, async (req, res)
 
 })
 routesUsers.get('/login', validateQuery, async (req, res) => {
-    const { id, pass } = req.query
-    const data = await allAsync(select(users.name, { id: id, password: pass }))
+    const { email, password } = req.query
+    const data = await allAsync(select(users.name, { email: email, password: password }))
     console.log(data)
     if (data.length != 0) {
         const user = data[0];
         res.status(200).json(user);
     }
     else
-        res.status(404).send("wrong password or id")
+        res.status(404).send("wrong password or email")
 })
 routesUsers.get('/user/:id', async (req, res) => {
     if (!req.params) {

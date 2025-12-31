@@ -2,12 +2,12 @@ const users = {
     name: "users",
     fields: {
         id: "int",
-        name: "text",
+        firstName: "text",
+        lastName: "text",
         password: "text",
         email:"text",
         phone:"text",
         birthday:"text",
-        city: "text"
     }
 }
 module.exports = { users }
