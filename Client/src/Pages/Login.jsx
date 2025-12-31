@@ -38,7 +38,7 @@ const Login = () => {
       setLoginError(error.response?.data || "Login failed");
     }
   };
-
+  console.log(1)
   return (
     <Grid container component="main" sx={{ height: '100%' }}>
       <ImageSide lightImage={Login_Light} darkImage={Login_Dark} />
