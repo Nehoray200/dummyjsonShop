@@ -51,12 +51,12 @@ export const registerFields = [
         name: 'lastName',
         width: 6,
         required: true
-    },
-    {
+    },{
         id: 'email',
         label: 'Email Address',
         name: 'email',
         required: true,
+        width: 12,
         valiData: mailCheck,
         errorMessage: 'Email is incorrect missing @ or .'
     },
@@ -65,9 +65,19 @@ export const registerFields = [
         label: 'Password',
         name: 'password',
         type: 'password',
+        width: 12,
         required: true,
         valiData: passwordCheck,
         errorMessage: "Minimum 8 characters, At least one uppercase letter(A- Z), At least one special character(e.g., !, @, #, $)"
+    },
+    {
+        id: 'id',
+        label: 'Id Card',
+        name: 'id',
+        width: 12,
+        required: true,
+        valiData: idCheck,
+        errorMessage: 'Please enter a valid 9-digit ID number'
     },
     {
         id: 'birthday',
@@ -75,19 +85,11 @@ export const registerFields = [
         name: 'birthday',
         type: 'date',
         required: true,
-        width: 6,
+        width: 12,
         errorMessage: 'You must be over 21 years old',
         valiData: dataCheck
     },
-    {
-        id: 'id',
-        label: 'Id Card',
-        name: 'id',
-        width: 6,
-        required: true,
-        valiData: idCheck,
-        errorMessage: 'Please enter a valid 9-digit ID number'
-    }, {
+    , {
         id: 'phone',
         label: 'Phone Number',
         name: 'phone',

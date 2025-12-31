@@ -5,7 +5,6 @@ import useForm from './useForm';
 import FormField from './FormField'; 
 
 const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
-    // שליפת formError מתוך ה-Hook
     const { values, errors, formError, handleChange, handleSubmit } = useForm(fields, onSubmit);
 
     return (
@@ -15,6 +14,7 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
             elevation={6}
             square
             sx={{
+                pt: 10,  
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -22,15 +22,20 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                 alignItems: 'center',
                 backgroundColor: 'background.paper',
                 color: 'text.primary',
-                overflow: 'hidden'
+                      overflowY: 'auto', // מאפשר גלילה אנכית רק בחלק הזה
             }}
         >
-            <Box sx={{ mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '450px' }}>
+            <Box sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                maxWidth: '450px' ,
+            }}>
                 <Typography component="h1" variant="h5" color="primary.main" sx={{ fontWeight: 'bold', mb: 3 }}>
                     {title}
                 </Typography>
 
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ width: '100%' }}>
+                <Box component="form" noValidate onSubmit={handleSubmit} >
                     <Grid container spacing={1.5}>
                         {fields.map((field, index) => (
                             <FormField

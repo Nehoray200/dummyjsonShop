@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider, createTheme, Box } from '@mui/material';
 import { ServerContext } from './Context/ServerContext';
 import { ColorModeContext } from './Context/ColorModeContext';
 import { AuthProvider } from './Context/AuthProvider';
-import Navbar from './components/Navbar'
+import Navbar from './components/Nav/Navbar'
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Register from './Pages/Register';

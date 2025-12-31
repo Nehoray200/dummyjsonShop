@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react'; // הוספת useState
-import { Grid } from '@mui/material';
+import { Grid, Stack,Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ServerContext } from '../Context/ServerContext';
-import { AuthContext } from '../Context/AuthProvider';
 import ImageSide from '../components/ImageSide';
 import AuthForm from '../components/Form/AuthForm';
 import GlobalAlert from '../components/GlobalAlert';
@@ -19,7 +18,7 @@ const Register = () => {
   const handleRegister = async (formData) => {
     try {
       setRegisterError("");
-      const response = await localServer.post('/users/register',formData)
+      const response = await localServer.post('/users/register', formData)
       navigate('/login');
 
     } catch (error) {
@@ -28,9 +27,8 @@ const Register = () => {
     }
   };
   return (
-    <Grid container component="main" sx={{ height: '100%' }}>
-
-      <ImageSide lightImage={myBackgroundImageOne} darkImage={myBackgroundImageTwo} />
+    <Grid container component="main" sx={{ height: '90vh' }} >
+        <ImageSide lightImage={myBackgroundImageOne} darkImage={myBackgroundImageTwo} />
 
       <AuthForm
         title={"Sign up"}
@@ -38,7 +36,7 @@ const Register = () => {
         fields={registerFields}
         onSubmit={handleRegister}
       />
-       <GlobalAlert message={registerError} />
+      <GlobalAlert message={registerError} />
     </Grid>
   );
 };
