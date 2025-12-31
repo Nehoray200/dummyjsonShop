@@ -16,19 +16,10 @@ const Navbar = () => {
                 enableColorOnDark
             >
                 <Toolbar variant="dense" sx={{ justifyContent: "flex-start", gap: "10px" }}>
-                    
-                    {/* כפתורי הניווט */}
                     <NavLinks />
-
-                    {/* דוחף את האלמנטים הבאים לצד ימין */}
                     <Box sx={{ flexGrow: 1 }} />
-
-                    {/* כפתור מצב לילה */}
                     <ThemeToggle />
-
-                    {/* תפריט משתמש ואווטאר */}
                     <UserMenu />
-
                 </Toolbar>
             </AppBar>
         </Box>

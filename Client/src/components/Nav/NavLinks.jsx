@@ -12,12 +12,12 @@ const NavLinks = () => {
             <Button component={Link} to="/" variant="text" sx={buttonStyle}>Home</Button>
             <Button component={Link} to="/Categories" variant="text" sx={buttonStyle}>Categories</Button>
             
-            {!user && (
+            {/* {!user && (
                 <>
                     <Button component={Link} to="/Login" variant="text" sx={buttonStyle}>Login</Button>
                     <Button component={Link} to="/Register" variant="text" sx={buttonStyle}>Register</Button>
                 </>
-            )}
+            )} */}
         </>
     );
 };
