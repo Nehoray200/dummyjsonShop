@@ -19,9 +19,8 @@ const UserMenu = () => {
     const handleClose = () => setAnchorEl(null);
 
     const getUserInitial = () => {
-        if (user?.name) return user.name[0].toUpperCase();
-        if (user?.email) return user.email[0].toUpperCase();
-        return 'G'; // ברירת מחדל לאורח
+        if (user?.firstName) return user.firstName[0].toUpperCase();
+        return 'G'; 
     };
 
     return (
@@ -31,7 +30,7 @@ const UserMenu = () => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleMenu} // הפונקציה המתוקנת
+                onClick={handleMenu} 
                 color="primary.main"
             >
                 <Avatar

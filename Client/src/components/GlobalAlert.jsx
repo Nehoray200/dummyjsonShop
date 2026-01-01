@@ -31,7 +31,7 @@ const GlobalAlert = ({ message, severity = "error" }) => {
                 variant="filled"
                 sx={{ width: '100%' }}
             >
-                <AlertTitle>{severity === 'error' ? 'Error' : 'Info'}</AlertTitle>
+                <AlertTitle>{severity === 'error' ? 'Error' : severity}</AlertTitle>
                 {message}
             </Alert>
         </Snackbar>

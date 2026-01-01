@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const useForm = (fields, onSubmit) => {
-    const [values, setValues] = useState({});
+// שינוי 1: הוספת פרמטר initialValues עם ברירת מחדל לאובייקט ריק
+const useForm = (fields, onSubmit, initialValues) => {
+    const [values, setValues] = useState(initialValues || {});
     const [errors, setErrors] = useState({});
-    
-    // שינוי 1: במקום בוליאני, נשתמש במחרוזת שתחזיק את הודעת השגיאה
     const [formError, setFormError] = useState("");
+
+    // שינוי 2: עדכון הערכים כשה-initialValues משתנים (למשל כשהיוזר נטען מהשרת)
+    useEffect(() => {
+        // תיקון: נעדכן רק אם באמת התקבל אובייקט (למשל בפרופיל)
+        if (initialValues) {
+            setValues(prev => ({ ...prev, ...initialValues }));
+        }
+    }, [initialValues]);
 
     const handleChange = (event, fieldConfig) => {
         const { name, value } = event.target;
         setValues(prev => ({ ...prev, [name]: value }));
 
-        // שינוי 2: אם המשתמש מתחיל לתקן, נעלים את ההודעה הכללית
         if (formError) setFormError("");
 
         let newErrorMessage = null;
-        const validationRule = fieldConfig.valiData;
+        // בדיקה שיש valiData לפני שמנסים להשתמש בו
+        const validationRule = fieldConfig?.valiData;
 
         if (validationRule) {
             let isValid = true;
@@ -36,10 +43,10 @@ const useForm = (fields, onSubmit) => {
         event.preventDefault();
 
         const hasErrors = Object.values(errors).some(error => error !== null);
+        // בדיקה רק לשדות שמוגדרים כ-required
         const missingRequired = fields.some(field => field.required && !values[field.name]);
 
         if (hasErrors || missingRequired) {
-            // שינוי 3: קביעת הודעת הטקסט במקום true/false
             setFormError("Please fill in all mandatory fields and correct any errors");
             return;
         }
@@ -52,7 +59,7 @@ const useForm = (fields, onSubmit) => {
     return {
         values,
         errors,
-        formError, // מחזירים את הטקסט החוצה
+        formError,
         handleChange,
         handleSubmit
     };

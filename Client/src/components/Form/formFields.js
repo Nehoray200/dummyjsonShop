@@ -120,3 +120,58 @@ export const loginFields = [
         errorMessage: "Minimum 8 characters, At least one uppercase letter(A- Z), At least one special character(e.g., !, @, #, $)"
     },
 ];
+
+export const profileFields = [
+    {
+        id: 'firstName',
+        label: 'First Name',
+        name: 'firstName',
+        width: 6,
+        required: true
+    },
+    {
+        id: 'lastName',
+        label: 'Last Name',
+        name: 'lastName',
+        width: 6,
+        required: true
+    },
+    {
+        id: 'email',
+        label: 'Email Address',
+        name: 'email',
+        width: 12,
+        required: true,
+        valiData: mailCheck, 
+        errorMessage: 'Invalid email address'
+    },
+    {
+        id: 'password',
+        label: 'Password',
+        name: 'password',
+        type: 'password',
+        width: 12,
+        required: true,
+        valiData: passwordCheck,
+        errorMessage: "Minimum 8 characters, At least one uppercase letter(A- Z), At least one special character(e.g., !, @, #, $)"
+    },
+    {
+        id: 'phone',
+        label: 'Phone Number',
+        name: 'phone',
+        width: 6,
+        required: true,
+        valiData: phoneCheck,
+        errorMessage: 'Invalid phone number'
+    },
+    {
+        id: 'birthday',
+        label: 'Date of Birth',
+        name: 'birthday',
+        type: 'date', 
+        width: 6,
+        required: true,
+        valiData: dataCheck, 
+        errorMessage: 'Must be valid age'
+    },
+];
