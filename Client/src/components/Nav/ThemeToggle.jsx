@@ -9,7 +9,7 @@ const ThemeToggle = () => {
     const { toggleColorMode } = useContext(ColorModeContext);
 
     return (
-        <IconButton onClick={toggleColorMode} sx={{color: 'primary.contrastText'}}>
+        <IconButton onClick={toggleColorMode} sx={{color: 'primary.main'}}>
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
     );

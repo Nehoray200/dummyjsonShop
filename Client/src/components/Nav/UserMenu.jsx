@@ -32,7 +32,7 @@ const UserMenu = () => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu} // הפונקציה המתוקנת
-                color="inherit"
+                color="primary.main"
             >
                 <Avatar
                     sx={{

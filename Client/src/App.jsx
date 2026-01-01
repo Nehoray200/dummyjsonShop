@@ -42,7 +42,9 @@ function App() {
               <AuthProvider>
               <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
                 <Navbar />
-                <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
+                
+                <Box sx={{ flexGrow: 1, overflow: 'auto'}}>
+                  
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Login" element={<Login />} />

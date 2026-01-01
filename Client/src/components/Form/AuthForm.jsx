@@ -36,6 +36,7 @@ const AuthForm = ({ title, fields, buttonText, onSubmit }) => {
                             <FormField
                                 key={index}
                                 field={field}
+                                
                                 value={values[field.name] || ''}
                                 error={errors[field.name]}
                                 onChange={(e) => handleChange(e, field)}

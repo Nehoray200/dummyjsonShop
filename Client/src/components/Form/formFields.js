@@ -85,7 +85,7 @@ export const registerFields = [
         name: 'birthday',
         type: 'date',
         required: true,
-        width: 12,
+        width: 5,
         errorMessage: 'You must be over 21 years old',
         valiData: dataCheck
     },
@@ -93,7 +93,7 @@ export const registerFields = [
         id: 'phone',
         label: 'Phone Number',
         name: 'phone',
-        width: 12,
+        width: 7,
         required: true,
         valiData: phoneCheck,
         errorMessage: 'Phone must start with 05 and contain 8 or 10 digits (digits and hyphens only)'
