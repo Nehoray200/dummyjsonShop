@@ -57,8 +57,7 @@ const UserMenu = () => {
                 onClose={handleClose}
                 disableScrollLock={true}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={()=> {handleClose(); navigate('/Profile')}}>Profile</MenuItem>
                 <MenuItem onClick={() => { handleClose(); logout(); }}>Logout</MenuItem>
             </Menu>
         </div>
